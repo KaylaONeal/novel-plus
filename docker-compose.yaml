@@ -1,0 +1,22 @@
+version: '3.7'
+
+services:
+  data:
+    container_name: novel-db
+    image: mysql:8.0
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=test123456
+    volumes:
+      - "/Users/zw/data/docker/db/mysql:/var/lib/mysql"
+      - "/Users/zw/data/docker/db/init.sql:/docker-entrypoint-initdb.d/init.sql"
+    command: mysqld --max_allowed_packet=100M
+    ports:
+      - 3306:3306
+
+
+  admin:
+    container_name: novel-admin
+    image: novel-admin
+    ports:
+      - 8088:80
